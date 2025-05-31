@@ -4,7 +4,7 @@ using Shared.Data.Seed;
 
 namespace Shared.Data;
 
-public static class Extentions
+public static class Extensions
 {
     public static IApplicationBuilder UseMigration<TContext>(this IApplicationBuilder app)
         where TContext : DbContext
