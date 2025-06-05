@@ -1,4 +1,6 @@
-﻿namespace Catalog.Products.Features.GetProductByID;
+﻿using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
+
+namespace Catalog.Products.Features.GetProductByID;
 
 public record GetProductByIdQuery(Guid ProductId)
     : IQuery<GetProductByIdResult>;
@@ -17,7 +19,7 @@ internal class GetProductByIdHandler(CatalogDbContext dbContext)
 
         if (product is null)
         {
-            throw new Exception($"Product not found: {query.ProductId}"); // Product not found
+            throw new ProductNotFoundException(query.ProductId); // Product not found Custom exception Handling
         }
         // Mapping product entity to product DTO using Mapster
         var productDto = product.Adapt<ProductDto>();

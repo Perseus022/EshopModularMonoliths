@@ -17,8 +17,7 @@ public class GetProductsEndpoint : ICarterModule
         .WithSummary("Retrieves all products from the catalog.")
         .WithDescription("This endpoint retrieves a list of all products available in the catalog.")
         .Produces<GetProductsResponse>(StatusCodes.Status200OK)
-        .ProducesProblem(StatusCodes.Status500InternalServerError, "An unexpected error occurred.")
-        .ProducesProblem(StatusCodes.Status200OK, "No products found.")
-        .ProducesProblem(StatusCodes.Status400BadRequest, "Invalid request data.");
+        .ProducesProblem(StatusCodes.Status500InternalServerError)
+        .ProducesProblem(StatusCodes.Status400BadRequest);
     }
 }

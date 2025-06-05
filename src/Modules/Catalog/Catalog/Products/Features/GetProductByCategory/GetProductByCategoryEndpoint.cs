@@ -15,7 +15,7 @@ public class GetProductByCategoryEndpoint: ICarterModule
         .WithSummary("Retrieves products by category.")
         .WithDescription("This endpoint retrieves a list of products that belong to a specific category.")
         .Produces<GetProductByCategoryResponse>(StatusCodes.Status200OK)
-        .ProducesProblem(StatusCodes.Status404NotFound, "No products found in this category.")
-        .ProducesProblem(StatusCodes.Status500InternalServerError, "An unexpected error occurred.");
+        .ProducesProblem(StatusCodes.Status404NotFound)
+        .ProducesProblem(StatusCodes.Status500InternalServerError);
     }
 }

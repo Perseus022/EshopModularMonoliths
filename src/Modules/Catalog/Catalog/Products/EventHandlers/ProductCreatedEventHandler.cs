@@ -8,5 +8,4 @@ public class ProductCreatedEventHandler(ILogger<ProductCreatedEventHandler> loge
         loger.LogInformation("Domain Event Handled: {DomainEvent}", notification.GetType().Name);
         return Task.CompletedTask;
     }
-
 }

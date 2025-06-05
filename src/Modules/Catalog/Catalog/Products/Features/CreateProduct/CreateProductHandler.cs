@@ -3,13 +3,41 @@
 public record CreateProductCommand(ProductDto Product)
     : ICommand<CreateProductResult>;
 
+public class CreateProductCommandValidator : AbstractValidator<CreateProductCommand>
+{ 
+    public CreateProductCommandValidator()
+    {
+        RuleFor(command => command.Product)
+            .NotNull()
+            .WithMessage("Product details must be provided.");
+        RuleFor(command => command.Product.Name)
+            .NotEmpty()
+            .WithMessage("Product name is required.");
+        RuleFor(command => command.Product.Category)
+            .NotEmpty()
+            .WithMessage("Product category is required.");
+        RuleFor(command => command.Product.ImageFile)
+            .NotEmpty()
+            .WithMessage("Product image file is required.");
+        RuleFor(command => command.Product.Price)
+            .GreaterThan(0)
+            .WithMessage("Product price must be greater than zero.");
+    }
+}
+
 public record CreateProductResult
     (Guid Id);
-internal class CreateProductHandler(CatalogDbContext dbContext)
+internal class CreateProductHandler
+    (CatalogDbContext dbContext,
+    ILogger<CreateProductHandler> logger)
         : ICommandHandler<CreateProductCommand, CreateProductResult>
 {
     public async Task<CreateProductResult> Handle(CreateProductCommand command, CancellationToken cancellationToken)
     {
+
+        // Log the command handling
+        logger.LogInformation("CreateProductCommandHandler Called with {@Command}", command.Product.Name);
+
         // Create a product Entity from Command Object
         // Here you would typically interact with a database or a repository to save the product.
         // Return result with the created product ID.

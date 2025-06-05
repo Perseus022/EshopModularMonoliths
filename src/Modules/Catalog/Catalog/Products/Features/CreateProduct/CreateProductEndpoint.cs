@@ -22,7 +22,7 @@ public class CreateProductEndpoint : ICarterModule
          .WithSummary("Create a new product")
          .WithDescription("Creates a new product in the catalog.")
          .Produces<CreateProductResponse>(StatusCodes.Status201Created)
-         .ProducesProblem(StatusCodes.Status400BadRequest, "Invalid request data.")
-         .ProducesProblem(StatusCodes.Status500InternalServerError, "An unexpected error occurred.");
+         .ProducesProblem(StatusCodes.Status400BadRequest)
+         .ProducesProblem(StatusCodes.Status500InternalServerError);
     }
 }

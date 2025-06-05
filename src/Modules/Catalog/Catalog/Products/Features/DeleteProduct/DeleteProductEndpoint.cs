@@ -2,26 +2,26 @@
 
 //public record DeleteProductRequest(Guid Id);
 
-public record DeleteProductResponse(bool Succes);
+public record DeleteProductRespont(bool Succes);
 
 public class DeleteProductEndpoint:ICarterModule
 {
     public void AddRoutes(IEndpointRouteBuilder app)
     {
-        app.MapDelete("/products/{id:guid}", async (Guid id, ISender sender) =>
+        app.MapDelete("/products/{id}", async (Guid id, ISender sender) =>
         {
-           
-            var result = await sender.Send(new DeleteProductCommand(id));
-            var response = result.Adapt<DeleteProductResponse>();
+            var result = await sender.Send(new DeleteProductCommand(id)); 
+            var response = result.Adapt<DeleteProductResult>(); //DeleteProductRespont
+
             return Results.Ok(response);
         })
         .WithName("DeleteProduct")
         .WithSummary("Delete a product")
         .WithDescription("Deletes a product from the catalog.")
-        .Produces<DeleteProductResponse>(StatusCodes.Status200OK)
-        .ProducesProblem(StatusCodes.Status400BadRequest, "Invalid request data.")
-        .ProducesProblem(StatusCodes.Status404NotFound, "Product not found.")
-        .ProducesProblem(StatusCodes.Status500InternalServerError, "An unexpected error occurred.");
+        .Produces<DeleteProductResult>(StatusCodes.Status200OK)
+        .ProducesProblem(StatusCodes.Status400BadRequest)
+        .ProducesProblem(StatusCodes.Status404NotFound)
+        .ProducesProblem(StatusCodes.Status500InternalServerError);
     }
 }
 

@@ -18,8 +18,7 @@ public class UpdateProductEndpoint:ICarterModule
         .WithSummary("Update an existing product")
         .WithDescription("Updates the details of an existing product in the catalog.")
         .Produces<UpdateProductResponse>(StatusCodes.Status200OK)
-        .ProducesProblem(StatusCodes.Status400BadRequest, "Invalid request data.")
-        .ProducesProblem(StatusCodes.Status404NotFound, "Product not found.")
-        .ProducesProblem(StatusCodes.Status500InternalServerError, "An unexpected error occurred.");
+        .ProducesProblem(StatusCodes.Status400BadRequest)
+        .ProducesProblem(StatusCodes.Status404NotFound);
     }
 }

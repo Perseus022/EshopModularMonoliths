@@ -15,7 +15,7 @@ public class GetProductByIdEndpoint:ICarterModule
         .WithSummary("Retrieves a product by its ID.")
         .WithDescription("This endpoint retrieves a specific product from the catalog using its unique identifier.")
         .Produces<GetproductByIdResponse>(StatusCodes.Status200OK)
-        .ProducesProblem(StatusCodes.Status404NotFound, "Product not found.")
-        .ProducesProblem(StatusCodes.Status500InternalServerError, "An unexpected error occurred.");
+        .ProducesProblem(StatusCodes.Status404NotFound)
+        .ProducesProblem(StatusCodes.Status500InternalServerError);
     }
 }

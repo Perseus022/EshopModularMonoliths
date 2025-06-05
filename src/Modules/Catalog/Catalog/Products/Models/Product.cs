@@ -38,13 +38,12 @@ public class Product : Aggregate<Guid>
         Category = category;
         Description = description;
         ImageFile = imageFile;
-        Price = price;
 
         // Add a domain event for the update if needed
         if (Price != price)
         {
             Price = price; // Update price only if it has changed
-            AddDomainEvent(new ProductCreatedEvent(this));
+            AddDomainEvent(new ProductPriceChangedEvent(this));
         }
     }
 
