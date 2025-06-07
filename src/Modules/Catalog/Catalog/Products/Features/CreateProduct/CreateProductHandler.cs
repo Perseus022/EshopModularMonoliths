@@ -28,15 +28,11 @@ public class CreateProductCommandValidator : AbstractValidator<CreateProductComm
 public record CreateProductResult
     (Guid Id);
 internal class CreateProductHandler
-    (CatalogDbContext dbContext,
-    ILogger<CreateProductHandler> logger)
+    (CatalogDbContext dbContext)
         : ICommandHandler<CreateProductCommand, CreateProductResult>
 {
     public async Task<CreateProductResult> Handle(CreateProductCommand command, CancellationToken cancellationToken)
     {
-
-        // Log the command handling
-        logger.LogInformation("CreateProductCommandHandler Called with {@Command}", command.Product.Name);
 
         // Create a product Entity from Command Object
         // Here you would typically interact with a database or a repository to save the product.
