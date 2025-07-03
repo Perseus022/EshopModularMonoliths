@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Shared.Data.Interceptors;
 using Shared.Data;
 using Basket.Data.Repository;
+using Microsoft.Extensions.Caching.Distributed;
 
 namespace Basket;
 
@@ -16,6 +17,16 @@ public static class BasketModule
         //Application Use Case Services
 
         services.AddScoped<IBasketRepository, BasketRepository>();
+        services.Decorate<IBasketRepository, CachedBasketRepository>(); //Registration Deccorator for caching with Scrutor
+
+        //Simle Registration Deccorator for caching******
+
+        //services.AddScoped<IBasketRepository>(provider =>
+        //{
+        //    var basketRepository = provider.GetRequiredService<BasketRepository>();
+        //    return new CachedBasketRepository(basketRepository,provider.GetRequiredService<IDistributedCache>());
+        //});
+        //*******
 
         //Data Infrastructure Services
         var connectionString = configuration.GetConnectionString("Database");

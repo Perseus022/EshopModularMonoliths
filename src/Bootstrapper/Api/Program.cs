@@ -17,6 +17,12 @@ builder.Services.AddCarterWithAssemlies(catalogAssemly, basketAssemply);
 
 builder.Services.AddMediatRWithAssemblies(catalogAssemly, basketAssemply);
 
+builder.Services.AddStackExchangeRedisCache(options =>
+{
+    options.Configuration = builder.Configuration.GetConnectionString("Redis");
+});
+
+
 builder.Services
     .AddCatalogModule(builder.Configuration)
     .AddBasketModule(builder.Configuration)

@@ -30,7 +30,7 @@ internal class AddItemInToBasket(IBasketRepository repository)
             command.ShoppingCartItem.Price, 
             command.ShoppingCartItem.ProductName);
 
-        await repository.SaveChangesAsync(cancellationToken);
+        await repository.SaveChangesAsync(command.userName,cancellationToken);
 
         return new AddItemInToBasketResult(shoppingCart.Id);
     }
