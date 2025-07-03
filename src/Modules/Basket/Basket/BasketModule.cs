@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Shared.Data.Interceptors;
 using Shared.Data;
+using Basket.Data.Repository;
 
 namespace Basket;
 
@@ -12,7 +13,9 @@ public static class BasketModule
     public static IServiceCollection AddBasketModule(this IServiceCollection services,
         IConfiguration configuration)
     {
+        //Application Use Case Services
 
+        services.AddScoped<IBasketRepository, BasketRepository>();
 
         //Data Infrastructure Services
         var connectionString = configuration.GetConnectionString("Database");

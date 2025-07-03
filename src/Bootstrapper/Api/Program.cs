@@ -9,10 +9,13 @@ builder.Host.UseSerilog((context, config) =>
 
 // Add services to the container.
 
-builder.Services.AddCarterWithAssemlies(typeof(CatalogModule).Assembly);
-//    typeof(BasketModule).Assembly,
-//    typeof(OrderingModule).Assembly
-//);
+// Common Services Carter, FluentValidation, MediatR, Serilog
+var catalogAssemly = typeof(CatalogModule).Assembly;
+var basketAssemply = typeof(BasketModule).Assembly;
+
+builder.Services.AddCarterWithAssemlies(catalogAssemly, basketAssemply);
+
+builder.Services.AddMediatRWithAssemblies(catalogAssemly, basketAssemply);
 
 builder.Services
     .AddCatalogModule(builder.Configuration)

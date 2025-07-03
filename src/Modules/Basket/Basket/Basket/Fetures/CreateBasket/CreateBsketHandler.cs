@@ -15,14 +15,15 @@ public class CreateBasketCommandValidator : AbstractValidator<CreateBasketComman
     }
 }
 
-internal class CreateBsketHandler(BasketDbContext dbContext)
+internal class CreateBsketHandler(IBasketRepository repository)
     : ICommandHandler<CreateBasketCommand, CreateBasketResult>
 {
     public async Task<CreateBasketResult> Handle(CreateBasketCommand command, CancellationToken cancellationToken)
     {
         var shoppingCart = CreateNewBasket(command.ShoppingCart);
-        dbContext.ShoppingCarts.Add(shoppingCart);
-        await dbContext.SaveChangesAsync(cancellationToken);
+        //dbContext.ShoppingCarts.Add(shoppingCart);
+        //await dbContext.SaveChangesAsync(cancellationToken);
+        shoppingCart = await repository.CreateBasket(shoppingCart, cancellationToken);
 
         return new CreateBasketResult(shoppingCart.Id);
     }
