@@ -5,8 +5,8 @@ public class ShoppingCart : Aggregate<Guid>
 {
     public string UserName { get; private set; } = default!;
 
-    private readonly List<ShoppingCartItem> _Items = new();
-    public IReadOnlyList<ShoppingCartItem> Items => _Items.AsReadOnly();
+    private readonly List<ShoppingCartItem> _items = new();
+    public IReadOnlyList<ShoppingCartItem> Items => _items.AsReadOnly();
 
     public decimal TotalPrice => Items.Sum(x => x.Price * x.Quantity);
 
@@ -35,7 +35,7 @@ public class ShoppingCart : Aggregate<Guid>
         else
         {
             var newItem = new ShoppingCartItem(Id, productId, quantity, color, price, productName);
-            _Items.Add(newItem);
+            _items.Add(newItem);
         }
     }
 
@@ -44,7 +44,7 @@ public class ShoppingCart : Aggregate<Guid>
 
         if (existingItem != null)
         {
-            _Items.Remove(existingItem);
+            _items.Remove(existingItem);
         }
     }
 }

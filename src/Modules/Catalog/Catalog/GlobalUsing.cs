@@ -8,8 +8,8 @@ global using Catalog.Data;
 global using Catalog.Data.Seed;
 global using Shared.Data;
 global using Shared.Data.Seed;
-global using Catalog.Products.Dtos;
-global using Shared.CQRS;
+global using Catalog.Conracts.Products.Dtos;
+global using Shared.Contracts.CQRS;
 global using Mapster;
 global using MediatR;
 global using Microsoft.Extensions.Logging;
@@ -19,3 +19,5 @@ global using Microsoft.AspNetCore.Http;
 global using Microsoft.AspNetCore.Routing;
 global using FluentValidation;
 global using Catalog.Products.Exceptions;
+global using Catalog.Conracts.Products.Features.GetProductByID;
+

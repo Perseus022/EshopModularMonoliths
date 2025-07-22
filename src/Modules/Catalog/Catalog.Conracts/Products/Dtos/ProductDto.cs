@@ -1,10 +1,9 @@
-﻿namespace Catalog.Products.Dtos;
-
+﻿namespace Catalog.Conracts.Products.Dtos;
 public record ProductDto(
-    Guid Id, 
-    string Name,  
+    Guid Id,
+    string Name,
     List<string> Category,
-    string Description,  
+    string Description,
     string ImageFile,
     decimal Price
     );
