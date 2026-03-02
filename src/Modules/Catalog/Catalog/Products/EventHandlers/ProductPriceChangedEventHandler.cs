@@ -1,12 +1,27 @@
-﻿namespace Catalog.Products.EventHandlers;
+﻿using MassTransit;
+using Shared.Messaging.Events;
 
-public class ProductPriceChangedEventHandler(ILogger<ProductPriceChangedEventHandler> _logger)
+namespace Catalog.Products.EventHandlers;
+
+public class ProductPriceChangedEventHandler
+    (IBus bus, ILogger<ProductPriceChangedEventHandler> _logger)
     : INotificationHandler<ProductPriceChangedEvent>
 {
-    public Task Handle(ProductPriceChangedEvent notification, CancellationToken cancellationToken)
+    public async Task Handle(ProductPriceChangedEvent notification, CancellationToken cancellationToken)
     {
-        //TODO: Publish product price changed integration event for upde baskeet price
         _logger.LogInformation("Domain Event Handled: {DomainEvent}", notification.GetType().Name);
-        return Task.CompletedTask;
+
+        //Publish product price changed integration event for upde baskeet price
+        var integrationEvent = new ProductPriceChangedIntegrationEvent
+        {
+            ProductId = notification.Product.Id,
+            Name = notification.Product.Name,
+            Category = notification.Product.Category,
+            Description = notification.Product.Description,
+            ImageFile = notification.Product.ImageFile,
+            Price = notification.Product.Price //Updated product price
+        };
+
+        await bus.Publish(integrationEvent, cancellationToken);
     }
 }
