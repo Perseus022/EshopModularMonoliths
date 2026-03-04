@@ -7,7 +7,7 @@ namespace Shared.Messaging.Extensions;
 
 public static class MassTransitExtensions
 {
-    public static IServiceCollection AddMassTransitWithAssemlies(this IServiceCollection services, params Assembly[] assemblies)
+    public static IServiceCollection AddMassTransitWithAssemlies(this IServiceCollection services,IConfiguration configuration, params Assembly[] assemblies)
     {
         services.AddMassTransit(config =>
         {
@@ -19,8 +19,20 @@ public static class MassTransitExtensions
             config.AddSagas(assemblies);
             config.AddActivities(assemblies);
 
-            config.UsingInMemory((context, configurator) =>
+            //In Memory Transport Configuration for Testing and Development
+            //config.UsingInMemory((context, configurator) =>
+            //{
+            //    configurator.ConfigureEndpoints(context);
+            //});
+
+            // RabbitMQ Transport Configuration for Production
+            config.UsingRabbitMq((context, configurator) =>
             {
+                configurator.Host(new Uri(configuration["MessageBroker:Host"]), host =>
+                {
+                    host.Username(configuration["RabbitMQ:Username"]);
+                    host.Password(configuration["RabbitMQ:Password"]);
+                });
                 configurator.ConfigureEndpoints(context);
             });
         });
