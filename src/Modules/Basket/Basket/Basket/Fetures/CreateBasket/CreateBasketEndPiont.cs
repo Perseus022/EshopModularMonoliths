@@ -1,4 +1,6 @@
 ﻿
+using System.Security.Claims;
+
 namespace Basket.Basket.Fetures.CreateBasket;
 
 public record CreateBasketRequest(ShoppingCartDto ShoppingCart);
@@ -8,9 +10,12 @@ public class CreateBasketEndPiont : ICarterModule
 {
     public void AddRoutes(IEndpointRouteBuilder app)
     {
-        app.MapPost("/basket", async (CreateBasketRequest request, ISender sender) =>
+        app.MapPost("/basket", async (CreateBasketRequest request, ISender sender,ClaimsPrincipal user) =>
         {
-            var command = request.Adapt<CreateBasketCommand>();
+            var userName = user.Identity?.Name ?? "anonymous";
+            var updateShoppingCart = request.ShoppingCart with { UserName = userName };
+
+            var command = new CreateBasketCommand(updateShoppingCart);
             var result = await sender.Send(command);
             var response = result.Adapt<CreateBasketResponse>();
             return Results.Created($"/basket/{response.Id}", response);

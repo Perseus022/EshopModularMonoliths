@@ -17,6 +17,7 @@ public class GetBasketEEndpoint : ICarterModule
         .Produces<GetBasketResponse>(StatusCodes.Status200OK)
         .ProducesProblem(StatusCodes.Status400BadRequest)
         .WithSummary("Get Basket")
-        .WithDescription("Retrieves a user's shopping basket by their username.");
+        .WithDescription("Retrieves a user's shopping basket by their username.")
+        .RequireAuthorization();
     }
 }

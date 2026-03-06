@@ -1,5 +1,9 @@
 
 using Keycloak.AuthServices.Authentication;
+using Microsoft.Extensions.Configuration;
+
+//using Microsoft.AspNetCore.Authentication.OpenIdConnect;
+//using Microsoft.AspNetCore.Authentication;
 
 var builder = WebApplication.CreateBuilder(args);
 // Add Serilog for logging
@@ -25,7 +29,7 @@ builder.Services.AddStackExchangeRedisCache(options =>
 });
 
 builder.Services
-    .AddMassTransitWithAssemlies(builder.Configuration, catalogAssemly,basketAssemply);
+    .AddMassTransitWithAssemlies(builder.Configuration, catalogAssemly, basketAssemply);
 
 builder.Services
     .AddCatalogModule(builder.Configuration)
@@ -33,9 +37,17 @@ builder.Services
     .AddOrderingModule(builder.Configuration);
 
 builder.Services
-    .AddExceptionHandler<CustomExceptionHandler >();
+    .AddExceptionHandler<CustomExceptionHandler>();
 
-builder.Services.AddKeycloakWebAppAuthentication(builder.Configuration);
+//builder.Services.AddKeycloakWebAppAuthentication(builder.Configuration); Error:  invalid parameter: redirect_uri
+builder.Services.AddKeycloakWebApiAuthentication(
+    builder.Configuration,
+    (options) =>
+    {
+        options.RequireHttpsMetadata = false;
+        options.Audience = "myclient";
+    }
+);
 builder.Services.AddAuthorization();
 
 var app = builder.Build();
