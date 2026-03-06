@@ -18,6 +18,7 @@ public class CreateBasketEndPiont : ICarterModule
         .Produces<CreateBasketResponse>(StatusCodes.Status201Created)
         .ProducesProblem(StatusCodes.Status400BadRequest)
         .WithSummary("Create basket")
-        .WithDescription("Create a new shopping basket with the provided items.");
+        .WithDescription("Create a new shopping basket with the provided items.")
+        .RequireAuthorization(); 
     }
 }

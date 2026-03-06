@@ -1,4 +1,6 @@
 
+using Keycloak.AuthServices.Authentication;
+
 var builder = WebApplication.CreateBuilder(args);
 // Add Serilog for logging
 builder.Host.UseSerilog((context, config) =>
@@ -33,6 +35,9 @@ builder.Services
 builder.Services
     .AddExceptionHandler<CustomExceptionHandler >();
 
+builder.Services.AddKeycloakWebAppAuthentication(builder.Configuration);
+builder.Services.AddAuthorization();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -40,6 +45,8 @@ var app = builder.Build();
 app.MapCarter(); // Map Carter endpoints
 app.UseSerilogRequestLogging(); // Add Serilog request logging middleware
 app.UseExceptionHandler(options => { }); // Use custom exception handler middleware
+app.UseAuthentication(); // Add authentication middleware
+app.UseAuthorization(); // Add authorization middleware
 
 app
     .UseCatalogeModule()
