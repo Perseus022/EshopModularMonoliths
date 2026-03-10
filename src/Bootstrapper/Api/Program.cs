@@ -18,10 +18,11 @@ builder.Host.UseSerilog((context, config) =>
 // Common Services Carter, FluentValidation, MediatR, Serilog
 var catalogAssemly = typeof(CatalogModule).Assembly;
 var basketAssemply = typeof(BasketModule).Assembly;
+var orderingAssemply = typeof(OrderingModule).Assembly;
 
-builder.Services.AddCarterWithAssemlies(catalogAssemly, basketAssemply);
+builder.Services.AddCarterWithAssemlies(catalogAssemly, basketAssemply, orderingAssemply);
 
-builder.Services.AddMediatRWithAssemblies(catalogAssemly, basketAssemply);
+builder.Services.AddMediatRWithAssemblies(catalogAssemly, basketAssemply, orderingAssemply);
 
 builder.Services.AddStackExchangeRedisCache(options =>
 {
@@ -64,9 +65,6 @@ app
     .UseCatalogeModule()
     .UseBasketModule()
     .UseOrderingModule();
-
-
-
 
 // Cofigure Error Handling Middleware
 
