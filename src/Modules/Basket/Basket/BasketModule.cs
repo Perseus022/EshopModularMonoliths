@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using Shared.Data.Interceptors;
 using Shared.Data;
+using Basket.Data.Processors;
 
 namespace Basket;
 
@@ -37,7 +37,7 @@ public static class BasketModule
             options.UseNpgsql(connectionString);
         });
         //services.AddScoped<IDataSeeder, BasketDataSeeder>();
-
+        services.AddHostedService<OutboxProcessor>();
 
         return services;
     }

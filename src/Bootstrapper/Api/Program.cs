@@ -30,7 +30,7 @@ builder.Services.AddStackExchangeRedisCache(options =>
 });
 
 builder.Services
-    .AddMassTransitWithAssemlies(builder.Configuration, catalogAssemly, basketAssemply);
+    .AddMassTransitWithAssemlies(builder.Configuration, catalogAssemly, basketAssemply, orderingAssemply);
 
 builder.Services
     .AddCatalogModule(builder.Configuration)

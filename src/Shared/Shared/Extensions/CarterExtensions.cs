@@ -1,5 +1,4 @@
 ﻿using Carter;
-using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 
 namespace Shared.Extensions;
