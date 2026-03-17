@@ -6,7 +6,7 @@ public interface IAggregate<T> : IEntity<T>, IAggregate
     // This interface combines the properties of IEntity<T> and IAggregate
     // It allows for aggregates to have a specific identifier type while also being an aggregate root
 }
-public interface IAggregate: IEntity
+public interface IAggregate : IEntity
 {
     IReadOnlyList<IDomainEvent> DomainEvents { get; } // Collection of domain events associated with the aggregate
 
