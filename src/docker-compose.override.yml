@@ -44,7 +44,7 @@ services:
       - KEYCLOAK_ADMIN=admin
       - KEYCLOAK_ADMIN_PASSWORD=admin
       - KC_DB=postgres
-      - KC_DB_URL=jdbc:postgresql://eshopdb:5432/EShopDb?currentSchema=identity
+      - KC_DB_URL=jdbc:postgresql://eshopdb/EShopDb?currentSchema=identity
       - KC_DB_USERNAME=postgres
       - KC_DB_PASSWORD=postgres
       - KC_HOSTNAME=http://identity:9090/
@@ -60,7 +60,7 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTP_PORTS=8080
       - ASPNETCORE_HTTPS_PORTS=8081
-      - ConnectionStrings__Database=Server=eshopdb;Port=5432;Database=BasketDb;User Id=postgres;Password=postgres;Include Error Detail=true
+      - ConnectionStrings__Database=Server=eshopdb;Port=5432;Database=EShopDb;User Id=postgres;Password=postgres;Include Error Detail=true
       - ConnectionStrings__Redis=distributedcache:6379
       - MessageBroker__Host=amqp://ecommerce-mq:5672
       - MessageBroker__UserName=guest
